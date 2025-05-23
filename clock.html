@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Digital Clock</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .clock-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .time {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #333;
+    }
+    .date {
+      font-size: 1.2rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-container">
+    <div class="time" id="time">00:00:00</div>
+    <div class="date" id="date">January 1, 1970 - Thursday</div>
+  </div>
+
+  <script>
+    const timeElement = document.getElementById("time");
+    const dateElement = document.getElementById("date");
+
+    function updateClock() {
+      const now = new Date();
+
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const seconds = String(now.getSeconds()).padStart(2, "0");
+      const timeString = `${hours}:${minutes}:${seconds}`;
+
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const dateString = now.toLocaleDateString(undefined, options);
+      const weekday = now.toLocaleDateString(undefined, { weekday: 'long' });
+
+      timeElement.textContent = timeString;
+      dateElement.textContent = `${dateString} - ${weekday}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock(); // Initial call
+  </script>
+</body>
+</html>
